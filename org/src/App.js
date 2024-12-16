@@ -10,29 +10,40 @@ import Footer from './components/Footer';
 function App() {
 
   const [mostrarFormulario, setMostrarFormulario] = useState(true);
-  const [colaboradores, setColaboradores] = useState([{
-    equipo: "Front End",
-    foto: "https://github.com/luisdh8.png",
-    nombre: "Luis Diaz",
-    puesto: "Front End Developer & Student"
-  }]); // Array vacío
+  const [colaboradores, setColaboradores] = useState([
+    {
+      equipo: "Front End",
+      foto: "https://github.com/luisdh8.png",
+      nombre: "Luis Diaz",
+      puesto: "Front End Developer & Student"
+    },
+    {
+      equipo: "Programación",
+      foto: "https://github.com/genesysR-dev.png",
+      nombre: "Genesys Rondón",
+      puesto: "Desarrolladora de software e instructora"
+    },
+    {
+      equipo: "UX y Diseño",
+      foto: "https://github.com/JeanmarieAluraLatam.png",
+      nombre: "Jeanmarie Quijada",
+      puesto: "Instructora en Alura Latam"
+    },
+    {
+      equipo: "Programación",
+      foto: "https://github.com/christianpva.png",
+      nombre: "Christian Velasco",
+      puesto: "Head de Alura e Instructor"
+    },
+    {
+      equipo: "Innovación y Gestión",
+      foto: "https://github.com/JoseDarioGonzalezCha.png",
+      nombre: "Jose Gonzalez",
+      puesto: "Dev FullStack"
+    }
+]); // Array de colaboradores
 
-  // Ternario --> condicion ? seMuestra : noSeMuestra
-  // Cortocircuito --> condicion && seMuestra
-
-  const cambiarMostrarFormulario = () => {
-    setMostrarFormulario(!mostrarFormulario);
-  }
-
-  // Registrar colaborador
-
-  const registrarColaborador = (colaborador) => {
-      console.log("Colaborador registrado", colaborador);
-      // Spread operator = copiar el array y agregar un nuevo elemento
-      setColaboradores([...colaboradores, colaborador]);
-  };
-
-  const equipos = [
+  const [equipos, setEquipos] = useState([
     {
       titulo: "Programación",
       colorSecundario: "#57C278",
@@ -68,7 +79,39 @@ function App() {
       colorSecundario: "#FF8A29",
       colorPrimario: "#FFEEDF"
     }
-  ];
+  ]);
+
+  // Ternario --> condicion ? seMuestra : noSeMuestra
+  // Cortocircuito --> condicion && seMuestra
+
+  const cambiarMostrarFormulario = () => {
+    setMostrarFormulario(!mostrarFormulario);
+  }
+
+  // Registrar colaborador
+
+  const registrarColaborador = (colaborador) => {
+      console.log("Colaborador registrado", colaborador);
+      // Spread operator = copiar el array y agregar un nuevo elemento
+      setColaboradores([...colaboradores, colaborador]);
+  };
+
+  // Eliminar colaborador
+  const eliminarColaborador = () => {
+    console.log("Colaborador eliminado");
+  };
+
+  // Actualizar color de equipo
+  const actualizarColor = (color, titulo) => {
+    console.log("Color actualizado", color, titulo);
+    const equiposActualizados = equipos.map((equipo) => {
+      if (equipo.titulo === titulo) {
+        equipo.colorSecundario = color;
+      }
+      return equipo;
+    });
+    setEquipos(equiposActualizados);
+  };
 
   return (
     <div>
@@ -84,9 +127,11 @@ function App() {
       {
         equipos.map((equipo) => {
           return <Equipo 
-          datos = {equipo} 
-          key = {equipo.titulo}
-          colaboradores = {colaboradores.filter(colaborador => colaborador.equipo === equipo.titulo)}
+            datos = {equipo} 
+            key = {equipo.titulo}
+            colaboradores = {colaboradores.filter(colaborador => colaborador.equipo === equipo.titulo)}
+            eliminarColaborador = {eliminarColaborador}
+            actualizarColor = {actualizarColor}
           />
         })
       }
