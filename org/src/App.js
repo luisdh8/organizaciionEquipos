@@ -10,42 +10,47 @@ import Footer from './components/Footer';
 
 function App() {
 
-  const [mostrarFormulario, setMostrarFormulario] = useState(true);
+  const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const [colaboradores, setColaboradores] = useState([
     {
       id: uuid(),
       equipo: "Front End",
       foto: "https://github.com/luisdh8.png",
       nombre: "Luis Diaz",
-      puesto: "Front End Developer & Student"
+      puesto: "Front End Developer & Student",
+      fav: true
     },
     {
       id: uuid(),
       equipo: "Programación",
       foto: "https://github.com/genesysR-dev.png",
       nombre: "Genesys Rondón",
-      puesto: "Desarrolladora de software e instructora"
+      puesto: "Desarrolladora de software e instructora",
+      fav: false
     },
     {
       id: uuid(),
       equipo: "UX y Diseño",
       foto: "https://github.com/JeanmarieAluraLatam.png",
       nombre: "Jeanmarie Quijada",
-      puesto: "Instructora en Alura Latam"
+      puesto: "Instructora en Alura Latam",
+      fav: false
     },
     {
       id: uuid(),
       equipo: "Programación",
       foto: "https://github.com/christianpva.png",
       nombre: "Christian Velasco",
-      puesto: "Head de Alura e Instructor"
+      puesto: "Head de Alura e Instructor",
+      fav: false
     },
     {
       id: uuid(),
       equipo: "Innovación y Gestión",
       foto: "https://github.com/JoseDarioGonzalezCha.png",
       nombre: "Jose Gonzalez",
-      puesto: "Dev FullStack"
+      puesto: "Dev FullStack",
+      fav: false
     }
 ]); // Array de colaboradores
 
@@ -133,6 +138,16 @@ function App() {
     setEquipos([...equipos, {...nuevoEquipo, id: uuid()}]);
   };
 
+  const like = (id) => {
+    const colaboradorFavorito = colaboradores.map((colaborador) => {
+      if (colaborador.id === id) {
+        colaborador.fav = !colaborador.fav;
+      }
+      return colaborador;
+    });
+    setColaboradores(colaboradorFavorito);
+  };
+
   return (
     <div>
       <Header />
@@ -153,6 +168,7 @@ function App() {
             colaboradores = {colaboradores.filter(colaborador => colaborador.equipo === equipo.titulo)}
             eliminarColaborador = {eliminarColaborador}
             actualizarColor = {actualizarColor}
+            like = {like}
           />
         })
       }
